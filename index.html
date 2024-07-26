@@ -133,12 +133,19 @@
     }
 
     search fieldset {
+      flex: 1 1 300px;
       margin: 0;
       padding: 0.5rem;
       display: grid;
       gap: 1rem;
-      grid-template-columns: max-content auto;
+      grid-template-columns: 7rem auto;
       align-items: baseline;
+    }
+
+    search fieldset .action-group {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fill, 82px);
     }
 
     search summary {
@@ -191,7 +198,7 @@
     <h1>Arknights EN Ops Tiers (WIP)</h1>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-07-26T11:44:20&#43;08:00">2024-07-26</time>
+        <li>Last updated on <time datetime="2024-07-26T12:27:38&#43;08:00">2024-07-26</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-07-20 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
@@ -868,8 +875,8 @@
           </fieldset>
           <fieldset>
             <label>Class</label>
-            <button id="class-select-dialog-button">Select classes</button>
-            <dialog id="class-select-dialog">
+            <button id="class-show-dialog">Select classes</button>
+            <dialog id="class-dialog">
               <span class="checkbox-group">
                 <label>
                   Caster
@@ -909,303 +916,315 @@
           </fieldset>
           <fieldset>
             <label>GP Tier</label>
-            <span class="checkbox-group">
-              
-              <label>
-                EX
-                <input type=checkbox checked name="gptier" value="EX" />
-              </label>
-              
-              <label>
-                S&#43;
-                <input type=checkbox checked name="gptier" value="S&#43;" />
-              </label>
-              
-              <label>
-                S
-                <input type=checkbox checked name="gptier" value="S" />
-              </label>
-              
-              <label>
-                S-
-                <input type=checkbox checked name="gptier" value="S-" />
-              </label>
-              
-              <label>
-                A&#43;
-                <input type=checkbox checked name="gptier" value="A&#43;" />
-              </label>
-              
-              <label>
-                A
-                <input type=checkbox checked name="gptier" value="A" />
-              </label>
-              
-              <label>
-                A-
-                <input type=checkbox checked name="gptier" value="A-" />
-              </label>
-              
-              <label>
-                B&#43;
-                <input type=checkbox checked name="gptier" value="B&#43;" />
-              </label>
-              
-              <label>
-                B
-                <input type=checkbox checked name="gptier" value="B" />
-              </label>
-              
-              <label>
-                B-
-                <input type=checkbox checked name="gptier" value="B-" />
-              </label>
-              
-              <label>
-                C&#43;
-                <input type=checkbox checked name="gptier" value="C&#43;" />
-              </label>
-              
-              <label>
-                C
-                <input type=checkbox checked name="gptier" value="C" />
-              </label>
-              
-              <label>
-                C-
-                <input type=checkbox checked name="gptier" value="C-" />
-              </label>
-              
-              <label>
-                D&#43;
-                <input type=checkbox checked name="gptier" value="D&#43;" />
-              </label>
-              
-              <label>
-                D
-                <input type=checkbox checked name="gptier" value="D" />
-              </label>
-              
-              <label>
-                D-
-                <input type=checkbox checked name="gptier" value="D-" />
-              </label>
-              
-              <label>
-                E
-                <input type=checkbox checked name="gptier" value="E" />
-              </label>
-              
-              <label>
-                
-                <input type=checkbox checked name="gptier" value="" />
-              </label>
-              
-            </span>
-            <div>
+            <span class="action-group">
+              <button id="gptier-show-dialog">Select tiers</button>
               <button id="gptier-select-all">Select all</button>
               <button id="gptier-clear-all">Clear</button>
-            </div>
+            </span>
+            <dialog class="gptier-dialog">
+              <span class="checkbox-group">
+                
+                <label>
+                  EX
+                  <input type=checkbox checked name="gptier" value="EX" />
+                </label>
+                
+                <label>
+                  S&#43;
+                  <input type=checkbox checked name="gptier" value="S&#43;" />
+                </label>
+                
+                <label>
+                  S
+                  <input type=checkbox checked name="gptier" value="S" />
+                </label>
+                
+                <label>
+                  S-
+                  <input type=checkbox checked name="gptier" value="S-" />
+                </label>
+                
+                <label>
+                  A&#43;
+                  <input type=checkbox checked name="gptier" value="A&#43;" />
+                </label>
+                
+                <label>
+                  A
+                  <input type=checkbox checked name="gptier" value="A" />
+                </label>
+                
+                <label>
+                  A-
+                  <input type=checkbox checked name="gptier" value="A-" />
+                </label>
+                
+                <label>
+                  B&#43;
+                  <input type=checkbox checked name="gptier" value="B&#43;" />
+                </label>
+                
+                <label>
+                  B
+                  <input type=checkbox checked name="gptier" value="B" />
+                </label>
+                
+                <label>
+                  B-
+                  <input type=checkbox checked name="gptier" value="B-" />
+                </label>
+                
+                <label>
+                  C&#43;
+                  <input type=checkbox checked name="gptier" value="C&#43;" />
+                </label>
+                
+                <label>
+                  C
+                  <input type=checkbox checked name="gptier" value="C" />
+                </label>
+                
+                <label>
+                  C-
+                  <input type=checkbox checked name="gptier" value="C-" />
+                </label>
+                
+                <label>
+                  D&#43;
+                  <input type=checkbox checked name="gptier" value="D&#43;" />
+                </label>
+                
+                <label>
+                  D
+                  <input type=checkbox checked name="gptier" value="D" />
+                </label>
+                
+                <label>
+                  D-
+                  <input type=checkbox checked name="gptier" value="D-" />
+                </label>
+                
+                <label>
+                  E
+                  <input type=checkbox checked name="gptier" value="E" />
+                </label>
+                
+                <label>
+                  
+                  <input type=checkbox checked name="gptier" value="" />
+                </label>
+                
+              </span>
+              <button>Close</button>
+            </dialog>
           </fieldset>
           <fieldset>
             <label>Cesith E1S7 Tier</label>
-            <span class="checkbox-group">
-              
-              <label>
-                S&#43;
-                <input type=checkbox checked name="ce1s7" value="S&#43;" />
-              </label>
-              
-              <label>
-                S
-                <input type=checkbox checked name="ce1s7" value="S" />
-              </label>
-              
-              <label>
-                S-
-                <input type=checkbox checked name="ce1s7" value="S-" />
-              </label>
-              
-              <label>
-                A&#43;
-                <input type=checkbox checked name="ce1s7" value="A&#43;" />
-              </label>
-              
-              <label>
-                A
-                <input type=checkbox checked name="ce1s7" value="A" />
-              </label>
-              
-              <label>
-                A-
-                <input type=checkbox checked name="ce1s7" value="A-" />
-              </label>
-              
-              <label>
-                B&#43;
-                <input type=checkbox checked name="ce1s7" value="B&#43;" />
-              </label>
-              
-              <label>
-                B
-                <input type=checkbox checked name="ce1s7" value="B" />
-              </label>
-              
-              <label>
-                B-
-                <input type=checkbox checked name="ce1s7" value="B-" />
-              </label>
-              
-              <label>
-                C&#43;
-                <input type=checkbox checked name="ce1s7" value="C&#43;" />
-              </label>
-              
-              <label>
-                C
-                <input type=checkbox checked name="ce1s7" value="C" />
-              </label>
-              
-              <label>
-                C-
-                <input type=checkbox checked name="ce1s7" value="C-" />
-              </label>
-              
-              <label>
-                D&#43;
-                <input type=checkbox checked name="ce1s7" value="D&#43;" />
-              </label>
-              
-              <label>
-                D
-                <input type=checkbox checked name="ce1s7" value="D" />
-              </label>
-              
-              <label>
-                Z
-                <input type=checkbox checked name="ce1s7" value="Z" />
-              </label>
-              
-              <label>
-                SP
-                <input type=checkbox checked name="ce1s7" value="SP" />
-              </label>
-              
-              <label>
-                
-                <input type=checkbox checked name="ce1s7" value="" />
-              </label>
-              
-            </span>
-            <div>
+            <span class="action-group">
+              <button id="ce1s7-show-dialog">Select tiers</button>
               <button id="ce1s7-select-all">Select all</button>
               <button id="ce1s7-clear-all">Clear</button>
-            </div>
+            </span>
+            <dialog id="ce1s7-dialog">
+              <span class="checkbox-group">
+                
+                <label>
+                  S&#43;
+                  <input type=checkbox checked name="ce1s7" value="S&#43;" />
+                </label>
+                
+                <label>
+                  S
+                  <input type=checkbox checked name="ce1s7" value="S" />
+                </label>
+                
+                <label>
+                  S-
+                  <input type=checkbox checked name="ce1s7" value="S-" />
+                </label>
+                
+                <label>
+                  A&#43;
+                  <input type=checkbox checked name="ce1s7" value="A&#43;" />
+                </label>
+                
+                <label>
+                  A
+                  <input type=checkbox checked name="ce1s7" value="A" />
+                </label>
+                
+                <label>
+                  A-
+                  <input type=checkbox checked name="ce1s7" value="A-" />
+                </label>
+                
+                <label>
+                  B&#43;
+                  <input type=checkbox checked name="ce1s7" value="B&#43;" />
+                </label>
+                
+                <label>
+                  B
+                  <input type=checkbox checked name="ce1s7" value="B" />
+                </label>
+                
+                <label>
+                  B-
+                  <input type=checkbox checked name="ce1s7" value="B-" />
+                </label>
+                
+                <label>
+                  C&#43;
+                  <input type=checkbox checked name="ce1s7" value="C&#43;" />
+                </label>
+                
+                <label>
+                  C
+                  <input type=checkbox checked name="ce1s7" value="C" />
+                </label>
+                
+                <label>
+                  C-
+                  <input type=checkbox checked name="ce1s7" value="C-" />
+                </label>
+                
+                <label>
+                  D&#43;
+                  <input type=checkbox checked name="ce1s7" value="D&#43;" />
+                </label>
+                
+                <label>
+                  D
+                  <input type=checkbox checked name="ce1s7" value="D" />
+                </label>
+                
+                <label>
+                  Z
+                  <input type=checkbox checked name="ce1s7" value="Z" />
+                </label>
+                
+                <label>
+                  SP
+                  <input type=checkbox checked name="ce1s7" value="SP" />
+                </label>
+                
+                <label>
+                  
+                  <input type=checkbox checked name="ce1s7" value="" />
+                </label>
+                
+              </span>
+              <button>Close</button>
+            </dialog>
           </fieldset>
           <fieldset>
             <label>Cesith Max Tier</label>
-            <span class="checkbox-group">
-              
-              <label>
-                OP
-                <input type=checkbox checked name="cmax" value="OP" />
-              </label>
-              
-              <label>
-                S&#43;
-                <input type=checkbox checked name="cmax" value="S&#43;" />
-              </label>
-              
-              <label>
-                S
-                <input type=checkbox checked name="cmax" value="S" />
-              </label>
-              
-              <label>
-                S-
-                <input type=checkbox checked name="cmax" value="S-" />
-              </label>
-              
-              <label>
-                A&#43;
-                <input type=checkbox checked name="cmax" value="A&#43;" />
-              </label>
-              
-              <label>
-                A
-                <input type=checkbox checked name="cmax" value="A" />
-              </label>
-              
-              <label>
-                A-
-                <input type=checkbox checked name="cmax" value="A-" />
-              </label>
-              
-              <label>
-                B&#43;
-                <input type=checkbox checked name="cmax" value="B&#43;" />
-              </label>
-              
-              <label>
-                B
-                <input type=checkbox checked name="cmax" value="B" />
-              </label>
-              
-              <label>
-                B-
-                <input type=checkbox checked name="cmax" value="B-" />
-              </label>
-              
-              <label>
-                C&#43;
-                <input type=checkbox checked name="cmax" value="C&#43;" />
-              </label>
-              
-              <label>
-                C
-                <input type=checkbox checked name="cmax" value="C" />
-              </label>
-              
-              <label>
-                C-
-                <input type=checkbox checked name="cmax" value="C-" />
-              </label>
-              
-              <label>
-                D&#43;
-                <input type=checkbox checked name="cmax" value="D&#43;" />
-              </label>
-              
-              <label>
-                D
-                <input type=checkbox checked name="cmax" value="D" />
-              </label>
-              
-              <label>
-                D-
-                <input type=checkbox checked name="cmax" value="D-" />
-              </label>
-              
-              <label>
-                Z-
-                <input type=checkbox checked name="cmax" value="Z-" />
-              </label>
-              
-              <label>
-                SP
-                <input type=checkbox checked name="cmax" value="SP" />
-              </label>
-              
-              <label>
-                
-                <input type=checkbox checked name="cmax" value="" />
-              </label>
-              
-            </span>
-            <div>
+            <span class="action-group">
+              <button id="cmax-show-dialog">Select tiers</button>
               <button id="cmax-select-all">Select all</button>
               <button id="cmax-clear-all">Clear</button>
-            </div>
+            </span>
+            <dialog id="cmax-dialog">
+              <span class="checkbox-group">
+                
+                <label>
+                  OP
+                  <input type=checkbox checked name="cmax" value="OP" />
+                </label>
+                
+                <label>
+                  S&#43;
+                  <input type=checkbox checked name="cmax" value="S&#43;" />
+                </label>
+                
+                <label>
+                  S
+                  <input type=checkbox checked name="cmax" value="S" />
+                </label>
+                
+                <label>
+                  S-
+                  <input type=checkbox checked name="cmax" value="S-" />
+                </label>
+                
+                <label>
+                  A&#43;
+                  <input type=checkbox checked name="cmax" value="A&#43;" />
+                </label>
+                
+                <label>
+                  A
+                  <input type=checkbox checked name="cmax" value="A" />
+                </label>
+                
+                <label>
+                  A-
+                  <input type=checkbox checked name="cmax" value="A-" />
+                </label>
+                
+                <label>
+                  B&#43;
+                  <input type=checkbox checked name="cmax" value="B&#43;" />
+                </label>
+                
+                <label>
+                  B
+                  <input type=checkbox checked name="cmax" value="B" />
+                </label>
+                
+                <label>
+                  B-
+                  <input type=checkbox checked name="cmax" value="B-" />
+                </label>
+                
+                <label>
+                  C&#43;
+                  <input type=checkbox checked name="cmax" value="C&#43;" />
+                </label>
+                
+                <label>
+                  C
+                  <input type=checkbox checked name="cmax" value="C" />
+                </label>
+                
+                <label>
+                  C-
+                  <input type=checkbox checked name="cmax" value="C-" />
+                </label>
+                
+                <label>
+                  D&#43;
+                  <input type=checkbox checked name="cmax" value="D&#43;" />
+                </label>
+                
+                <label>
+                  D
+                  <input type=checkbox checked name="cmax" value="D" />
+                </label>
+                
+                <label>
+                  D-
+                  <input type=checkbox checked name="cmax" value="D-" />
+                </label>
+                
+                <label>
+                  Z-
+                  <input type=checkbox checked name="cmax" value="Z-" />
+                </label>
+                
+                <label>
+                  SP
+                  <input type=checkbox checked name="cmax" value="SP" />
+                </label>
+                
+                <label>
+                  
+                  <input type=checkbox checked name="cmax" value="" />
+                </label>
+                
+              </span>
+              <button>Close</button>
+            </dialog>
           </fieldset>
         </div>
       </details>
@@ -11601,8 +11620,8 @@
             </li>
             
             <li data-rarity="6" data-name="Rosa" data-class="Sniper"
-              data-subclass="Besieger" data-tags="DPS Crowd-Control" data-gptier=""
-              data-ce1s7="" data-cmax="">
+              data-subclass="Besieger" data-tags="DPS Crowd-Control" data-gptier="S&#43;"
+              data-ce1s7="A&#43;" data-cmax="S">
               <h3>Rosa</h2>
                 <dl>
                   <div>
@@ -11623,15 +11642,15 @@
                   </div>
                   <div>
                     <dt>GamePress Tier</dt>
-                    <dd></dd>
+                    <dd>S&#43;</dd>
                   </div>
                   <div>
                     <dt>Cesith E1S7 Tier</dt>
-                    <dd></dd>
+                    <dd>A&#43;</dd>
                   </div>
                   <div>
                     <dt>Cesith Max Tier</dt>
-                    <dd></dd>
+                    <dd>S</dd>
                   </div>
                   <div>
                     <dt>Link</dt>
@@ -14880,6 +14899,11 @@
         el.dispatchEvent(new Event('change'));
       })
     });
+    const elDialog = elSearchForm.querySelector(`dialog#${v}-dialog`);
+    const elShowDialogButton = elSearchForm.querySelector(`button#${v}-show-dialog`);
+    elShowDialogButton?.addEventListener("click", () => void elDialog?.showModal())
+    const elCloseDialogButton = elDialog?.querySelector("button");
+    elCloseDialogButton?.addEventListener("click", () => void elDialog?.close())
   }
   const createCheckboxHandler = (v) => {
     return (el) => {
@@ -14904,12 +14928,6 @@
     setupCheckboxes("gptier");
     setupCheckboxes("ce1s7");
     setupCheckboxes("cmax");
-
-    const elClassSelectDialog = elSearchForm.querySelector("#class-select-dialog");
-    const elClassSelectDialogButton = elSearchForm.querySelector("#class-select-dialog-button");
-    elClassSelectDialogButton.addEventListener("click", () => void elClassSelectDialog.showModal())
-    const elClassSelectDialogCloseButton = elSearchForm.querySelector("#class-select-dialog button");
-    elClassSelectDialogCloseButton.addEventListener("click", () => void elClassSelectDialog.close())
 
     const elNameSearch = elSearchForm.querySelector('input[name="name"]');
     elNameSearch.addEventListener("input", (e) => {
