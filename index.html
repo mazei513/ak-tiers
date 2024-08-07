@@ -7,251 +7,235 @@
   <meta name="description" content="A simple page listing Arknights EN Operator Tiers" />
   <title>Arknights EN Ops Tiers</title>
   <style>
-    @layer comp {
-      :root {
-        --color-surface: black;
-        --color-surface-text: white;
-      }
+    :root {
+      --color-surface: black;
+      --color-surface-text: white;
+    }
 
-      html,
-      body {
-        background-color: var(--color-surface);
-        color: var(--color-surface-text);
-        font-size: 16px;
-        font-family: sans-serif;
-        margin: 0 auto;
-      }
+    html,
+    body {
+      background-color: var(--color-surface);
+      color: var(--color-surface-text);
+      font-size: 16px;
+      font-family: sans-serif;
+      margin: 0 auto;
+    }
 
-      body>* {
-        margin-inline: 0.5rem;
-      }
+    body>* {
+      margin-inline: 0.5rem;
+    }
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-family: serif;
-      }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: serif;
+    }
 
-      a {
-        color: lightblue;
-      }
+    a {
+      color: lightblue;
+    }
 
-      a:visited {
-        color: mediumpurple;
-      }
+    a:visited {
+      color: mediumpurple;
+    }
 
-      button {
-        background-color: var(--color-surface);
-        border-color: 1px solid var(--color-surface-text);
-        color: var(--color-surface-text);
-        padding: 0.25rem;
-        border-radius: 0.75rem;
-      }
+    button {
+      background-color: var(--color-surface);
+      border-color: 1px solid var(--color-surface-text);
+      color: var(--color-surface-text);
+      padding: 0.25rem;
+      border-radius: 0.75rem;
+    }
 
-      search ul {
-        list-style-type: none;
-        padding: 0;
-        display: grid;
-        justify-content: center;
-        gap: 0.5rem;
-        grid-template-columns: repeat(auto-fill, minmax(min-content, 390px));
-      }
+    search ul {
+      list-style-type: none;
+      padding: 0;
+      display: grid;
+      justify-content: center;
+      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(min-content, 390px));
+    }
 
-      search li {
-        border-radius: 0.5rem;
-        border: 1px solid grey;
-        padding: 1rem;
-        box-shadow: 0 0 0.75rem 0.25rem inset var(--rarity-color, transparent);
-      }
+    search li {
+      border-radius: 0.5rem;
+      border: 1px solid grey;
+      padding: 1rem;
+      box-shadow: 0 0 0.75rem 0.25rem inset var(--rarity-color, transparent);
+    }
 
-      [data-rarity="6"] {
-        --rarity-color: gold;
-      }
+    [data-rarity="6"] {
+      --rarity-color: gold;
+    }
 
-      [data-rarity="5"] {
-        --rarity-color: palegoldenrod;
-      }
+    [data-rarity="5"] {
+      --rarity-color: palegoldenrod;
+    }
 
-      [data-rarity="4"] {
-        --rarity-color: slategray;
-      }
+    [data-rarity="4"] {
+      --rarity-color: slategray;
+    }
 
-      [data-rarity="3"] {
-        --rarity-color: dodgerblue;
-      }
+    [data-rarity="3"] {
+      --rarity-color: dodgerblue;
+    }
 
-      [data-rarity="2"] {
-        --rarity-color: lime;
-      }
+    [data-rarity="2"] {
+      --rarity-color: lime;
+    }
 
-      [data-rarity="1"] {
-        --rarity-color: white;
-      }
+    [data-rarity="1"] {
+      --rarity-color: white;
+    }
 
-      search li h3 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-      }
+    search li h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
 
-      search dl {
-        margin: 0;
-      }
+    search dl {
+      margin: 0;
+    }
 
-      search dl>div {
-        display: grid;
-        grid-template-columns: 130px 1fr;
-      }
+    search dl>div {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+    }
 
-      search dl dt::after {
-        content: ":";
-      }
+    search dl dt::after {
+      content: ":";
+    }
 
-      search dl :is(dd, dt) {
-        margin: 0;
-        text-transform: capitalize;
-      }
+    search dl :is(dd, dt) {
+      margin: 0;
+      text-transform: capitalize;
+    }
 
-      search>details {
-        border-bottom: 1px solid white;
-        background-color: black;
-        padding: 1rem;
-        position: sticky;
-        top: 0;
-      }
+    search>details {
+      border-bottom: 1px solid white;
+      background-color: black;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-flow: column;
+      gap: 0.5rem;
+    }
 
-      summary {
-        cursor: pointer;
-      }
+    summary {
+      cursor: pointer;
+    }
 
-      search input[type=text] {
-        min-width: 40px;
-      }
+    search input[type=text] {
+      min-width: 40px;
+    }
 
-      search>details>div {
-        margin-top: 0.5rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(auto, 450px));
-        justify-content: center;
-        gap: 0.5rem;
-      }
+    search>details>div {
+      margin-top: 0.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(auto, 450px));
+      justify-content: center;
+      gap: 0.5rem;
+    }
 
+    search>details>div fieldset {
+      margin: 0;
+      padding: 0.5rem;
+      display: grid;
+      gap: 0.5rem;
+      align-items: baseline;
+      grid-template-columns: 15ch 1fr;
+    }
+
+    @media(max-width: 380px) {
       search>details>div fieldset {
-        margin: 0;
-        padding: 0.5rem;
-        display: grid;
-        gap: 0.5rem;
-        align-items: baseline;
-        grid-template-columns: 15ch 1fr;
-      }
-
-      @media(max-width: 380px) {
-        search>details>div fieldset {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      search>details>div fieldset:has(button:nth-of-type(2)) {
-        grid-template-columns: 2fr repeat(2, 1fr);
-      }
-
-      @media(max-width: 465px) {
-        search>details>div>fieldset:has(button:nth-of-type(2))>label {
-          grid-column: span 3;
-        }
-      }
-
-      search fieldset span:has(input[type=checkbox]) {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 0.75rem;
-      }
-
-      search fieldset div:has(input[type=checkbox]) {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 0.75rem;
-      }
-
-      search fieldset :is(span, div):has(input[type=checkbox])>* {
-        flex: 1;
-      }
-
-      ::backdrop {
-        background-color: black;
-        opacity: 0.5;
-      }
-
-      dialog {
-        background-color: black;
-        color: white;
-        border: 1px solid white;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        width: 85vw;
-        max-width: 500px;
-      }
-
-      dialog button {
-        margin-top: 1rem;
-      }
-
-      body>header {
-        margin: 0.5rem;
-        margin-bottom: 0;
-      }
-
-      body>header ul {
-        margin: 0;
-        margin-left: 1rem;
-        padding: 0;
-      }
-
-      body>header aside h2 {
-        font-size: 1.25rem;
-      }
-
-      body>header aside :is(li, p) {
-        font-size: 0.75rem;
-      }
-
-      label:has(input[type=checkbox]) {
-        display: inline-flex;
-        flex-flow: row-reverse;
-        justify-content: start;
-        align-items: baseline;
-        gap: 0.125rem;
+        grid-template-columns: 1fr;
       }
     }
 
-    @layer util {
-      .col-1 {
-        display: flex;
-        flex-flow: column;
-        gap: 0.25rem;
-      }
+    search>details>div fieldset:has(button:nth-of-type(2)) {
+      grid-template-columns: 2fr repeat(2, 1fr);
+    }
 
-      .col-2 {
-        display: flex;
-        flex-flow: column;
-        gap: 0.5rem;
+    @media(max-width: 465px) {
+      search>details>div>fieldset:has(button:nth-of-type(2))>label {
+        grid-column: span 3;
       }
+    }
 
-      .name-hide,
-      .rarity-hide,
-      .class-hide,
-      .subclass-hide,
-      .gptier-hide,
-      .ce1s7-hide,
-      .cmax-hide {
-        display: none;
-      }
+    search fieldset span:has(input[type=checkbox]) {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0.75rem;
+    }
 
-      .hidden {
-        display: none;
-      }
+    search fieldset div:has(input[type=checkbox]) {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0.75rem;
+    }
+
+    search fieldset :is(span, div):has(input[type=checkbox])>* {
+      flex: 1;
+    }
+
+    ::backdrop {
+      background-color: black;
+      opacity: 0.5;
+    }
+
+    dialog {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      width: 85vw;
+      max-width: 500px;
+    }
+
+    dialog button {
+      margin-top: 1rem;
+    }
+
+    body>header {
+      margin: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    body>header ul {
+      margin: 0;
+      margin-left: 1rem;
+      padding: 0;
+    }
+
+    body>header aside h2 {
+      font-size: 1.25rem;
+    }
+
+    body>header aside :is(li, p) {
+      font-size: 0.75rem;
+    }
+
+    label:has(input[type=checkbox]) {
+      display: inline-flex;
+      flex-flow: row-reverse;
+      justify-content: start;
+      align-items: baseline;
+      gap: 0.125rem;
+    }
+
+    .name-hide,
+    .rarity-hide,
+    .class-hide,
+    .subclass-hide,
+    .gptier-hide,
+    .ce1s7-hide,
+    .cmax-hide,
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -270,7 +254,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-08-07T18:34:57&#43;08:00">2024-08-07</time>
+        <li>Last updated on <time datetime="2024-08-07T18:38:19&#43;08:00">2024-08-07</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-07-20 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
