@@ -159,9 +159,17 @@
       grid-template-columns: 2fr repeat(2, 1fr);
     }
 
-    @media(max-width: 465px) {
+    search>details>div>fieldset:has(button:nth-of-type(2))>label {
+      grid-column: span 3;
+    }
+
+    @media(min-width: 520px) {
+      search>details>div fieldset:has(button:nth-of-type(2)) {
+        grid-template-columns: 15ch 2fr repeat(2, 1fr);
+      }
+
       search>details>div>fieldset:has(button:nth-of-type(2))>label {
-        grid-column: span 3;
+        grid-column: span 1;
       }
     }
 
@@ -254,7 +262,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-08-07T18:41:02&#43;08:00">2024-08-07</time>
+        <li>Last updated on <time datetime="2024-08-07T18:45:17&#43;08:00">2024-08-07</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-07-20 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
