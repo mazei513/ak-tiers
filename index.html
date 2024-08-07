@@ -7,205 +7,251 @@
   <meta name="description" content="A simple page listing Arknights EN Operator Tiers" />
   <title>Arknights EN Ops Tiers</title>
   <style>
-    :root {
-      --shadow-shape: 0 0 0.75rem 0.25rem inset;
+    @layer comp {
+      :root {
+        --color-surface: black;
+        --color-surface-text: white;
+      }
+
+      html,
+      body {
+        background-color: var(--color-surface);
+        color: var(--color-surface-text);
+        font-size: 16px;
+        font-family: sans-serif;
+        margin: 0 auto;
+      }
+
+      body>* {
+        margin-inline: 0.5rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: serif;
+      }
+
+      a {
+        color: lightblue;
+      }
+
+      a:visited {
+        color: mediumpurple;
+      }
+
+      button {
+        background-color: var(--color-surface);
+        border-color: 1px solid var(--color-surface-text);
+        color: var(--color-surface-text);
+        padding: 0.25rem;
+        border-radius: 0.75rem;
+      }
+
+      search ul {
+        list-style-type: none;
+        padding: 0;
+        display: grid;
+        justify-content: center;
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(min-content, 390px));
+      }
+
+      search li {
+        border-radius: 0.5rem;
+        border: 1px solid grey;
+        padding: 1rem;
+        box-shadow: 0 0 0.75rem 0.25rem inset var(--rarity-color, transparent);
+      }
+
+      [data-rarity="6"] {
+        --rarity-color: gold;
+      }
+
+      [data-rarity="5"] {
+        --rarity-color: palegoldenrod;
+      }
+
+      [data-rarity="4"] {
+        --rarity-color: slategray;
+      }
+
+      [data-rarity="3"] {
+        --rarity-color: dodgerblue;
+      }
+
+      [data-rarity="2"] {
+        --rarity-color: lime;
+      }
+
+      [data-rarity="1"] {
+        --rarity-color: white;
+      }
+
+      search li h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      search dl {
+        margin: 0;
+      }
+
+      search dl>div {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+      }
+
+      search dl dt::after {
+        content: ":";
+      }
+
+      search dl :is(dd, dt) {
+        margin: 0;
+        text-transform: capitalize;
+      }
+
+      search>details {
+        border-bottom: 1px solid white;
+        background-color: black;
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+      }
+
+      summary {
+        cursor: pointer;
+      }
+
+      search input[type=text] {
+        min-width: 40px;
+      }
+
+      search>details>div {
+        margin-top: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(auto, 450px));
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      search>details>div fieldset {
+        margin: 0;
+        padding: 0.5rem;
+        display: grid;
+        gap: 0.5rem;
+        align-items: baseline;
+        grid-template-columns: 15ch 1fr;
+      }
+
+      @media(max-width: 380px) {
+        search>details>div fieldset {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      search>details>div fieldset:has(button:nth-of-type(2)) {
+        grid-template-columns: 2fr repeat(2, 1fr);
+      }
+
+      @media(max-width: 465px) {
+        search>details>div>fieldset:has(button:nth-of-type(2))>label {
+          grid-column: span 3;
+        }
+      }
+
+      search fieldset span:has(input[type=checkbox]) {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.75rem;
+      }
+
+      search fieldset div:has(input[type=checkbox]) {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.75rem;
+      }
+
+      search fieldset :is(span, div):has(input[type=checkbox])>* {
+        flex: 1;
+      }
+
+      ::backdrop {
+        background-color: black;
+        opacity: 0.5;
+      }
+
+      dialog {
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 85vw;
+        max-width: 500px;
+      }
+
+      dialog button {
+        margin-top: 1rem;
+      }
+
+      body>header {
+        margin: 0.5rem;
+        margin-bottom: 0;
+      }
+
+      body>header ul {
+        margin: 0;
+        margin-left: 1rem;
+        padding: 0;
+      }
+
+      body>header aside h2 {
+        font-size: 1.25rem;
+      }
+
+      body>header aside :is(li, p) {
+        font-size: 0.75rem;
+      }
+
+      label:has(input[type=checkbox]) {
+        display: inline-flex;
+        flex-flow: row-reverse;
+        justify-content: start;
+        align-items: baseline;
+        gap: 0.125rem;
+      }
     }
 
-    html,
-    body {
-      background-color: black;
-      color: white;
-      font-size: 16px;
-      font-family: sans-serif;
-      margin: 0 auto;
-    }
+    @layer util {
+      .col-1 {
+        display: flex;
+        flex-flow: column;
+        gap: 0.25rem;
+      }
 
-    body>* {
-      margin-inline: 0.5rem;
-    }
+      .col-2 {
+        display: flex;
+        flex-flow: column;
+        gap: 0.5rem;
+      }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: serif;
-    }
+      .name-hide,
+      .rarity-hide,
+      .class-hide,
+      .subclass-hide,
+      .gptier-hide,
+      .ce1s7-hide,
+      .cmax-hide {
+        display: none;
+      }
 
-    a {
-      color: lightblue;
-    }
-
-    a:visited {
-      color: mediumpurple;
-    }
-
-    search ul {
-      list-style-type: none;
-      padding: 0;
-      display: grid;
-      justify-content: center;
-      gap: 0.5rem;
-      grid-template-columns: repeat(auto-fill, minmax(min-content, 390px));
-    }
-
-    search li {
-      border-radius: 0.5rem;
-      border: 1px solid grey;
-      padding: 1rem;
-    }
-
-    search li[data-rarity="6"] {
-      box-shadow: var(--shadow-shape) gold;
-    }
-
-    search li[data-rarity="5"] {
-      box-shadow: var(--shadow-shape) palegoldenrod;
-    }
-
-    search li[data-rarity="4"] {
-      box-shadow: var(--shadow-shape) slategray;
-    }
-
-    search li[data-rarity="3"] {
-      box-shadow: var(--shadow-shape) dodgerblue;
-    }
-
-    search li[data-rarity="2"] {
-      box-shadow: var(--shadow-shape) lime;
-    }
-
-    search li[data-rarity="1"] {
-      box-shadow: var(--shadow-shape) white;
-    }
-
-    search li h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    search dl {
-      margin: 0;
-    }
-
-    search dl>div {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-    }
-
-    search dl dt::after {
-      content: ":";
-    }
-
-    search dl dd,
-    search dl dt {
-      margin: 0;
-      text-transform: capitalize;
-    }
-
-    .checkbox-group {
-      display: flex;
-      flex-flow: row wrap;
-      gap: 0.75rem;
-      align-items: baseline;
-    }
-
-    .name-hide,
-    .rarity-hide,
-    .class-hide,
-    .gptier-hide,
-    .ce1s7-hide,
-    .cmax-hide,
-    .hidden {
-      display: none;
-    }
-
-    .search-form {
-      border-bottom: 1px solid white;
-      background-color: black;
-      padding: 1rem;
-      display: flex;
-      flex-flow: column;
-      gap: 0.5rem;
-      position: sticky;
-      top: 0;
-    }
-
-    search fieldset {
-      flex: 1 1 300px;
-      margin: 0;
-      padding: 0.5rem;
-      display: grid;
-      gap: var(--fieldset-gap);
-      grid-template-columns: var(--fieldset-label-width) minmax(0, var(--action-group-max-width));
-      align-items: baseline;
-    }
-
-    search fieldset input[type=text] {
-      min-width: 40px;
-    }
-
-    search fieldset .action-group {
-      display: grid;
-      gap: var(--action-group-gap);
-      grid-template-columns: repeat(auto-fill, var(--action-group-button-width));
-    }
-
-    search summary {
-      cursor: pointer;
-    }
-
-    .filters {
-      --action-group-button-width: 5.15rem;
-      --action-group-gap: 0.5rem;
-      --action-group-max-width: calc(var(--action-group-gap) * 2 + var(--action-group-button-width) * 3);
-      --action-group-min-width: calc(var(--action-group-gap) + var(--action-group-button-width) * 2);
-      --fieldset-label-width: 6rem;
-      --fieldset-gap: 1rem;
-      --fieldset-max-width: calc(1.5rem + var(--fieldset-label-width) + var(--fieldset-gap) + var(--action-group-max-width));
-      --fieldset-min-width: calc(var(--fieldset-label-width) + var(--fieldset-gap) + var(--action-group-min-width));
-      margin-top: 0.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(0, var(--fieldset-max-width)));
-      gap: 0.5rem;
-    }
-
-    ::backdrop {
-      background-color: black;
-      opacity: 0.5;
-    }
-
-    dialog {
-      background-color: black;
-      color: white;
-      border: 1px solid white;
-      border-radius: 0.5rem;
-      padding: 1rem;
-    }
-
-    dialog button {
-      margin-top: 1rem;
-    }
-
-    body>header {
-      margin: 0.5rem;
-      margin-bottom: 0;
-    }
-
-    body>header ul {
-      margin: 0;
-      margin-left: 1rem;
-      padding: 0;
-    }
-
-    body>header aside h2 {
-      font-size: 1.25rem;
-    }
-
-    body>header aside li,
-    body>header aside p {
-      font-size: 0.75rem;
+      .hidden {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -224,7 +270,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-08-06T14:44:42&#43;08:00">2024-08-06</time>
+        <li>Last updated on <time datetime="2024-08-07T18:34:57&#43;08:00">2024-08-07</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-07-20 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
@@ -236,1024 +282,60 @@
   </header>
   <main>
     <search>
-      <details class="search-form hidden">
+      <details class="search-form col-2 hidden">
         <summary>Filters</summary>
-        <div class="filters">
+        <div>
           <fieldset>
-            <label for="name">
-              Name
-            </label>
+            <label>Name</label>
             <input id="name" name="name" type="text" list="opslist" />
-            <datalist id="opslist">
-              
-              <option value="&#39;Justice Knight&#39;"></option>
-              
-              <option value="12F"></option>
-              
-              <option value="Aak"></option>
-              
-              <option value="Absinthe"></option>
-              
-              <option value="Aciddrop"></option>
-              
-              <option value="Adnachiel"></option>
-              
-              <option value="Akafuyu"></option>
-              
-              <option value="Almond"></option>
-              
-              <option value="Ambriel"></option>
-              
-              <option value="Amiya"></option>
-              
-              <option value="Andreana"></option>
-              
-              <option value="Angelina"></option>
-              
-              <option value="Ansel"></option>
-              
-              <option value="Aosta"></option>
-              
-              <option value="April"></option>
-              
-              <option value="Archetto"></option>
-              
-              <option value="Arene"></option>
-              
-              <option value="Asbestos"></option>
-              
-              <option value="Ash"></option>
-              
-              <option value="Ashlock"></option>
-              
-              <option value="Astesia"></option>
-              
-              <option value="Astgenne"></option>
-              
-              <option value="Aurora"></option>
-              
-              <option value="Ayerscarpe"></option>
-              
-              <option value="Bagpipe"></option>
-              
-              <option value="Bassline"></option>
-              
-              <option value="Beagle"></option>
-              
-              <option value="Beanstalk"></option>
-              
-              <option value="Beehunter"></option>
-              
-              <option value="Beeswax"></option>
-              
-              <option value="Bena"></option>
-              
-              <option value="Bibeak"></option>
-              
-              <option value="Bison"></option>
-              
-              <option value="Blacknight"></option>
-              
-              <option value="Blaze"></option>
-              
-              <option value="Blemishine"></option>
-              
-              <option value="Blitz"></option>
-              
-              <option value="Blue Poison"></option>
-              
-              <option value="Breeze"></option>
-              
-              <option value="Broca"></option>
-              
-              <option value="Bryophyta"></option>
-              
-              <option value="Bubble"></option>
-              
-              <option value="Cantabile"></option>
-              
-              <option value="Caper"></option>
-              
-              <option value="Cardigan"></option>
-              
-              <option value="Carnelian"></option>
-              
-              <option value="Castle-3"></option>
-              
-              <option value="Catapult"></option>
-              
-              <option value="Cement"></option>
-              
-              <option value="Ceobe"></option>
-              
-              <option value="Ceylon"></option>
-              
-              <option value="Ch&#39;en"></option>
-              
-              <option value="Ch&#39;en the Holungday"></option>
-              
-              <option value="Chestnut"></option>
-              
-              <option value="Chiave"></option>
-              
-              <option value="Chongyue"></option>
-              
-              <option value="Click"></option>
-              
-              <option value="Cliffheart"></option>
-              
-              <option value="Coldshot"></option>
-              
-              <option value="Conviction"></option>
-              
-              <option value="Corroserum"></option>
-              
-              <option value="Courier"></option>
-              
-              <option value="Croissant"></option>
-              
-              <option value="Cuora"></option>
-              
-              <option value="Cutter"></option>
-              
-              <option value="Czerny"></option>
-              
-              <option value="Dagda"></option>
-              
-              <option value="Deepcolor"></option>
-              
-              <option value="Degenbrecher"></option>
-              
-              <option value="Delphine"></option>
-              
-              <option value="Diamante"></option>
-              
-              <option value="Dobermann"></option>
-              
-              <option value="Dorothy"></option>
-              
-              <option value="Dur-nar"></option>
-              
-              <option value="Durin"></option>
-              
-              <option value="Dusk"></option>
-              
-              <option value="Earthspirit"></option>
-              
-              <option value="Ebenholz"></option>
-              
-              <option value="Elysium"></option>
-              
-              <option value="Enforcer"></option>
-              
-              <option value="Erato"></option>
-              
-              <option value="Estelle"></option>
-              
-              <option value="Ethan"></option>
-              
-              <option value="Eunectes"></option>
-              
-              <option value="Executor"></option>
-              
-              <option value="Executor the Ex Foedere"></option>
-              
-              <option value="Exusiai"></option>
-              
-              <option value="Eyjafjalla"></option>
-              
-              <option value="Eyjafjalla the Hvít Aska"></option>
-              
-              <option value="FEater"></option>
-              
-              <option value="Fang"></option>
-              
-              <option value="Fartooth"></option>
-              
-              <option value="Fiammetta"></option>
-              
-              <option value="Firewatch"></option>
-              
-              <option value="Firewhistle"></option>
-              
-              <option value="Flamebringer"></option>
-              
-              <option value="Flametail"></option>
-              
-              <option value="Flint"></option>
-              
-              <option value="Folinic"></option>
-              
-              <option value="Franka"></option>
-              
-              <option value="Friston-3"></option>
-              
-              <option value="Frost"></option>
-              
-              <option value="Frostleaf"></option>
-              
-              <option value="Gavial"></option>
-              
-              <option value="Gavial the Invincible"></option>
-              
-              <option value="Gitano"></option>
-              
-              <option value="Gladiia"></option>
-              
-              <option value="Glaucus"></option>
-              
-              <option value="Gnosis"></option>
-              
-              <option value="Goldenglow"></option>
-              
-              <option value="Grain Buds"></option>
-              
-              <option value="Grani"></option>
-              
-              <option value="Gravel"></option>
-              
-              <option value="GreyThroat"></option>
-              
-              <option value="Greyy"></option>
-              
-              <option value="Greyy the Lightningbearer"></option>
-              
-              <option value="Gummy"></option>
-              
-              <option value="Harmonie"></option>
-              
-              <option value="Harold"></option>
-              
-              <option value="Haze"></option>
-              
-              <option value="Heavyrain"></option>
-              
-              <option value="Heidi"></option>
-              
-              <option value="Hellagur"></option>
-              
-              <option value="Hibiscus"></option>
-              
-              <option value="Hibiscus the Purifier"></option>
-              
-              <option value="Highmore"></option>
-              
-              <option value="Ho&#39;olheyak"></option>
-              
-              <option value="Hoederer"></option>
-              
-              <option value="Honeyberry"></option>
-              
-              <option value="Horn"></option>
-              
-              <option value="Hoshiguma"></option>
-              
-              <option value="Humus"></option>
-              
-              <option value="Hung"></option>
-              
-              <option value="Ifrit"></option>
-              
-              <option value="Indigo"></option>
-              
-              <option value="Indra"></option>
-              
-              <option value="Ines"></option>
-              
-              <option value="Insider"></option>
-              
-              <option value="Irene"></option>
-              
-              <option value="Iris"></option>
-              
-              <option value="Istina"></option>
-              
-              <option value="Jackie"></option>
-              
-              <option value="Jaye"></option>
-              
-              <option value="Jessica"></option>
-              
-              <option value="Jessica the Liberated"></option>
-              
-              <option value="Jieyun"></option>
-              
-              <option value="Kafka"></option>
-              
-              <option value="Kal&#39;tsit"></option>
-              
-              <option value="Kazemaru"></option>
-              
-              <option value="Kestrel"></option>
-              
-              <option value="Kirara"></option>
-              
-              <option value="Kirin R Yato"></option>
-              
-              <option value="Kjera"></option>
-              
-              <option value="Kroos"></option>
-              
-              <option value="Kroos the Keen Glint"></option>
-              
-              <option value="La Pluma"></option>
-              
-              <option value="Lancet-2"></option>
-              
-              <option value="Lappland"></option>
-              
-              <option value="Lava"></option>
-              
-              <option value="Lava the Purgatory"></option>
-              
-              <option value="Lee"></option>
-              
-              <option value="Leizi"></option>
-              
-              <option value="Leonhardt"></option>
-              
-              <option value="Lessing"></option>
-              
-              <option value="Leto"></option>
-              
-              <option value="Lin"></option>
-              
-              <option value="Ling"></option>
-              
-              <option value="Liskarm"></option>
-              
-              <option value="Lumen"></option>
-              
-              <option value="Lunacub"></option>
-              
-              <option value="Luo Xiaohei"></option>
-              
-              <option value="Magallan"></option>
-              
-              <option value="Manticore"></option>
-              
-              <option value="Matoimaru"></option>
-              
-              <option value="Matterhorn"></option>
-              
-              <option value="May"></option>
-              
-              <option value="Mayer"></option>
-              
-              <option value="Melanite"></option>
-              
-              <option value="Melantha"></option>
-              
-              <option value="Meteor"></option>
-              
-              <option value="Meteorite"></option>
-              
-              <option value="Midnight"></option>
-              
-              <option value="Minimalist"></option>
-              
-              <option value="Mint"></option>
-              
-              <option value="Mizuki"></option>
-              
-              <option value="Morgan"></option>
-              
-              <option value="Mostima"></option>
-              
-              <option value="Mountain"></option>
-              
-              <option value="Mousse"></option>
-              
-              <option value="Mr. Nothing"></option>
-              
-              <option value="Mudrock"></option>
-              
-              <option value="Muelsyse"></option>
-              
-              <option value="Mulberry"></option>
-              
-              <option value="Myrrh"></option>
-              
-              <option value="Myrtle"></option>
-              
-              <option value="Młynar"></option>
-              
-              <option value="Nearl"></option>
-              
-              <option value="Nearl the Radiant Knight"></option>
-              
-              <option value="Nian"></option>
-              
-              <option value="Nightingale"></option>
-              
-              <option value="Nightmare"></option>
-              
-              <option value="Nine-Colored Deer"></option>
-              
-              <option value="Noir Corne"></option>
-              
-              <option value="Orchid"></option>
-              
-              <option value="Pallas"></option>
-              
-              <option value="Paprika"></option>
-              
-              <option value="Passenger"></option>
-              
-              <option value="Penance"></option>
-              
-              <option value="Perfumer"></option>
-              
-              <option value="Phantom"></option>
-              
-              <option value="Pinecone"></option>
-              
-              <option value="Platinum"></option>
-              
-              <option value="Plume"></option>
-              
-              <option value="Podenco"></option>
-              
-              <option value="Poncirus"></option>
-              
-              <option value="Popukar"></option>
-              
-              <option value="Pozëmka"></option>
-              
-              <option value="Pramanix"></option>
-              
-              <option value="Projekt Red"></option>
-              
-              <option value="Provence"></option>
-              
-              <option value="Proviso"></option>
-              
-              <option value="Ptilopsis"></option>
-              
-              <option value="Pudding"></option>
-              
-              <option value="Purestream"></option>
-              
-              <option value="Puzzle"></option>
-              
-              <option value="Qanipalaat"></option>
-              
-              <option value="Qiubai"></option>
-              
-              <option value="Quartz"></option>
-              
-              <option value="Quercus"></option>
-              
-              <option value="Rangers"></option>
-              
-              <option value="Rathalos S Noir Corne"></option>
-              
-              <option value="Ray"></option>
-              
-              <option value="Reed"></option>
-              
-              <option value="Reed the Flame Shadow"></option>
-              
-              <option value="Roberta"></option>
-              
-              <option value="Robin"></option>
-              
-              <option value="Rockrock"></option>
-              
-              <option value="Rope"></option>
-              
-              <option value="Rosa"></option>
-              
-              <option value="Rosmontis"></option>
-              
-              <option value="Saga"></option>
-              
-              <option value="Saileach"></option>
-              
-              <option value="Santalla"></option>
-              
-              <option value="Saria"></option>
-              
-              <option value="Savage"></option>
-              
-              <option value="Scavenger"></option>
-              
-              <option value="Scene"></option>
-              
-              <option value="Schwarz"></option>
-              
-              <option value="Sesa"></option>
-              
-              <option value="Shalem"></option>
-              
-              <option value="Shamare"></option>
-              
-              <option value="Shaw"></option>
-              
-              <option value="Shining"></option>
-              
-              <option value="Shirayuki"></option>
-              
-              <option value="Shu"></option>
-              
-              <option value="Sideroca"></option>
-              
-              <option value="Siege"></option>
-              
-              <option value="Silence"></option>
-              
-              <option value="Silence the Paradigmatic"></option>
-              
-              <option value="SilverAsh"></option>
-              
-              <option value="Skadi"></option>
-              
-              <option value="Skadi the Corrupting Heart"></option>
-              
-              <option value="Skyfire"></option>
-              
-              <option value="Snowsant"></option>
-              
-              <option value="Sora"></option>
-              
-              <option value="Specter"></option>
-              
-              <option value="Specter the Unchained"></option>
-              
-              <option value="Spot"></option>
-              
-              <option value="Spuria"></option>
-              
-              <option value="Stainless"></option>
-              
-              <option value="Steward"></option>
-              
-              <option value="Surtr"></option>
-              
-              <option value="Sussurro"></option>
-              
-              <option value="Suzuran"></option>
-              
-              <option value="Swire"></option>
-              
-              <option value="Swire the Elegant Wit"></option>
-              
-              <option value="THRM-EX"></option>
-              
-              <option value="Tachanka"></option>
-              
-              <option value="Tequila"></option>
-              
-              <option value="Terra Research Commission"></option>
-              
-              <option value="Texas"></option>
-              
-              <option value="Texas the Omertosa"></option>
-              
-              <option value="Thorns"></option>
-              
-              <option value="Toddifons"></option>
-              
-              <option value="Tomimi"></option>
-              
-              <option value="Totter"></option>
-              
-              <option value="Tsukinogi"></option>
-              
-              <option value="Tuye"></option>
-              
-              <option value="Typhon"></option>
-              
-              <option value="U-Official"></option>
-              
-              <option value="Utage"></option>
-              
-              <option value="Valarqvin"></option>
-              
-              <option value="Vanilla"></option>
-              
-              <option value="Vendela"></option>
-              
-              <option value="Verdant"></option>
-              
-              <option value="Vermeil"></option>
-              
-              <option value="Vigil"></option>
-              
-              <option value="Vigna"></option>
-              
-              <option value="Virtuosa"></option>
-              
-              <option value="Viviana"></option>
-              
-              <option value="Vulcan"></option>
-              
-              <option value="W"></option>
-              
-              <option value="Waai Fu"></option>
-              
-              <option value="Wanqing"></option>
-              
-              <option value="Warfarin"></option>
-              
-              <option value="Warmy"></option>
-              
-              <option value="Weedy"></option>
-              
-              <option value="Whislash"></option>
-              
-              <option value="Whisperain"></option>
-              
-              <option value="Wild Mane"></option>
-              
-              <option value="Wind Chimes"></option>
-              
-              <option value="Windflit"></option>
-              
-              <option value="Yato"></option>
-              
-              <option value="Zima"></option>
-              
-              <option value="Zuo Le"></option>
-              
-            </datalist>
+            <datalist id="opslist"></datalist>
           </fieldset>
           <fieldset>
-            <label>
-              Rarity
-            </label>
-            <span class="checkbox-group">
-              <label>
-                1
-                <input type="checkbox" checked name="rarity" value="1" />
-              </label>
-              <label>
-                2
-                <input type="checkbox" checked name="rarity" value="2" />
-              </label>
-              <label>
-                3
-                <input type="checkbox" checked name="rarity" value="3" />
-              </label>
-              <label>
-                4
-                <input type="checkbox" checked name="rarity" value="4" />
-              </label>
-              <label>
-                5
-                <input type="checkbox" checked name="rarity" value="5" />
-              </label>
-              <label>
-                6
-                <input type="checkbox" checked name="rarity" value="6" />
-              </label>
-            </span>
+            <label>Rarity</label>
+            <span id="rarity-checkboxes"></span>
           </fieldset>
           <fieldset>
             <label>Class</label>
             <button id="class-show-dialog">Select classes</button>
+            <button id="class-select-all">Select all</button>
+            <button id="class-clear-all">Clear</button>
             <dialog id="class-dialog">
-              <span class="checkbox-group">
-                <label>
-                  Caster
-                  <input type=checkbox checked name="class" value="Caster" />
-                </label>
-                <label>
-                  Defender
-                  <input type=checkbox checked name="class" value="Defender" />
-                </label>
-                <label>
-                  Guard
-                  <input type=checkbox checked name="class" value="Guard" />
-                </label>
-                <label>
-                  Medic
-                  <input type=checkbox checked name="class" value="Medic" />
-                </label>
-                <label>
-                  Sniper
-                  <input type=checkbox checked name="class" value="Sniper" />
-                </label>
-                <label>
-                  Specialist
-                  <input type=checkbox checked name="class" value="Specialist" />
-                </label>
-                <label>
-                  Supporter
-                  <input type=checkbox checked name="class" value="Supporter" />
-                </label>
-                <label>
-                  Vanguard
-                  <input type=checkbox checked name="class" value="Vanguard" />
-                </label>
-              </span>
+              <div id="class-checkboxes"></div>
               <button>Close</button>
             </dialog>
           </fieldset>
           <fieldset>
+            <label>Subclass</label>
+            <input id="subclass" name="subclass" type="text" list="subclasslist" />
+            <datalist id="subclasslist"></datalist>
+          </fieldset>
+          <fieldset>
             <label>GP Tier</label>
-            <span class="action-group">
-              <button id="gptier-show-dialog">Select tiers</button>
-              <button id="gptier-select-all">Select all</button>
-              <button id="gptier-clear-all">Clear</button>
-            </span>
+            <button id="gptier-show-dialog">Select tiers</button>
+            <button id="gptier-select-all">Select all</button>
+            <button id="gptier-clear-all">Clear</button>
             <dialog id="gptier-dialog">
-              <span class="checkbox-group">
-                
-                <label>
-                  EX
-                  <input type=checkbox checked name="gptier" value="EX" />
-                </label>
-                
-                <label>
-                  S&#43;
-                  <input type=checkbox checked name="gptier" value="S&#43;" />
-                </label>
-                
-                <label>
-                  S
-                  <input type=checkbox checked name="gptier" value="S" />
-                </label>
-                
-                <label>
-                  S-
-                  <input type=checkbox checked name="gptier" value="S-" />
-                </label>
-                
-                <label>
-                  A&#43;
-                  <input type=checkbox checked name="gptier" value="A&#43;" />
-                </label>
-                
-                <label>
-                  A
-                  <input type=checkbox checked name="gptier" value="A" />
-                </label>
-                
-                <label>
-                  A-
-                  <input type=checkbox checked name="gptier" value="A-" />
-                </label>
-                
-                <label>
-                  B&#43;
-                  <input type=checkbox checked name="gptier" value="B&#43;" />
-                </label>
-                
-                <label>
-                  B
-                  <input type=checkbox checked name="gptier" value="B" />
-                </label>
-                
-                <label>
-                  B-
-                  <input type=checkbox checked name="gptier" value="B-" />
-                </label>
-                
-                <label>
-                  C&#43;
-                  <input type=checkbox checked name="gptier" value="C&#43;" />
-                </label>
-                
-                <label>
-                  C
-                  <input type=checkbox checked name="gptier" value="C" />
-                </label>
-                
-                <label>
-                  C-
-                  <input type=checkbox checked name="gptier" value="C-" />
-                </label>
-                
-                <label>
-                  D&#43;
-                  <input type=checkbox checked name="gptier" value="D&#43;" />
-                </label>
-                
-                <label>
-                  D
-                  <input type=checkbox checked name="gptier" value="D" />
-                </label>
-                
-                <label>
-                  D-
-                  <input type=checkbox checked name="gptier" value="D-" />
-                </label>
-                
-                <label>
-                  E
-                  <input type=checkbox checked name="gptier" value="E" />
-                </label>
-                
-              </span>
+              <div id="gptier-checkboxes"></div>
               <button>Close</button>
             </dialog>
           </fieldset>
           <fieldset>
             <label>Cesith E1S7 Tier</label>
-            <span class="action-group">
-              <button id="ce1s7-show-dialog">Select tiers</button>
-              <button id="ce1s7-select-all">Select all</button>
-              <button id="ce1s7-clear-all">Clear</button>
-            </span>
+            <button id="ce1s7-show-dialog">Select tiers</button>
+            <button id="ce1s7-select-all">Select all</button>
+            <button id="ce1s7-clear-all">Clear</button>
             <dialog id="ce1s7-dialog">
-              <span class="checkbox-group">
-                
-                <label>
-                  S&#43;
-                  <input type=checkbox checked name="ce1s7" value="S&#43;" />
-                </label>
-                
-                <label>
-                  S
-                  <input type=checkbox checked name="ce1s7" value="S" />
-                </label>
-                
-                <label>
-                  S-
-                  <input type=checkbox checked name="ce1s7" value="S-" />
-                </label>
-                
-                <label>
-                  A&#43;
-                  <input type=checkbox checked name="ce1s7" value="A&#43;" />
-                </label>
-                
-                <label>
-                  A
-                  <input type=checkbox checked name="ce1s7" value="A" />
-                </label>
-                
-                <label>
-                  A-
-                  <input type=checkbox checked name="ce1s7" value="A-" />
-                </label>
-                
-                <label>
-                  B&#43;
-                  <input type=checkbox checked name="ce1s7" value="B&#43;" />
-                </label>
-                
-                <label>
-                  B
-                  <input type=checkbox checked name="ce1s7" value="B" />
-                </label>
-                
-                <label>
-                  B-
-                  <input type=checkbox checked name="ce1s7" value="B-" />
-                </label>
-                
-                <label>
-                  C&#43;
-                  <input type=checkbox checked name="ce1s7" value="C&#43;" />
-                </label>
-                
-                <label>
-                  C
-                  <input type=checkbox checked name="ce1s7" value="C" />
-                </label>
-                
-                <label>
-                  C-
-                  <input type=checkbox checked name="ce1s7" value="C-" />
-                </label>
-                
-                <label>
-                  D&#43;
-                  <input type=checkbox checked name="ce1s7" value="D&#43;" />
-                </label>
-                
-                <label>
-                  D
-                  <input type=checkbox checked name="ce1s7" value="D" />
-                </label>
-                
-                <label>
-                  Z
-                  <input type=checkbox checked name="ce1s7" value="Z" />
-                </label>
-                
-                <label>
-                  SP
-                  <input type=checkbox checked name="ce1s7" value="SP" />
-                </label>
-                
-                <label>
-                  
-                  <input type=checkbox checked name="ce1s7" value="" />
-                </label>
-                
-              </span>
+              <div id="ce1s7-checkboxes"></div>
               <button>Close</button>
             </dialog>
           </fieldset>
           <fieldset>
             <label>Cesith Max Tier</label>
-            <span class="action-group">
-              <button id="cmax-show-dialog">Select tiers</button>
-              <button id="cmax-select-all">Select all</button>
-              <button id="cmax-clear-all">Clear</button>
-            </span>
+            <button id="cmax-show-dialog">Select tiers</button>
+            <button id="cmax-select-all">Select all</button>
+            <button id="cmax-clear-all">Clear</button>
             <dialog id="cmax-dialog">
-              <span class="checkbox-group">
-                
-                <label>
-                  OP
-                  <input type=checkbox checked name="cmax" value="OP" />
-                </label>
-                
-                <label>
-                  S&#43;
-                  <input type=checkbox checked name="cmax" value="S&#43;" />
-                </label>
-                
-                <label>
-                  S
-                  <input type=checkbox checked name="cmax" value="S" />
-                </label>
-                
-                <label>
-                  S-
-                  <input type=checkbox checked name="cmax" value="S-" />
-                </label>
-                
-                <label>
-                  A&#43;
-                  <input type=checkbox checked name="cmax" value="A&#43;" />
-                </label>
-                
-                <label>
-                  A
-                  <input type=checkbox checked name="cmax" value="A" />
-                </label>
-                
-                <label>
-                  A-
-                  <input type=checkbox checked name="cmax" value="A-" />
-                </label>
-                
-                <label>
-                  B&#43;
-                  <input type=checkbox checked name="cmax" value="B&#43;" />
-                </label>
-                
-                <label>
-                  B
-                  <input type=checkbox checked name="cmax" value="B" />
-                </label>
-                
-                <label>
-                  B-
-                  <input type=checkbox checked name="cmax" value="B-" />
-                </label>
-                
-                <label>
-                  C&#43;
-                  <input type=checkbox checked name="cmax" value="C&#43;" />
-                </label>
-                
-                <label>
-                  C
-                  <input type=checkbox checked name="cmax" value="C" />
-                </label>
-                
-                <label>
-                  C-
-                  <input type=checkbox checked name="cmax" value="C-" />
-                </label>
-                
-                <label>
-                  D&#43;
-                  <input type=checkbox checked name="cmax" value="D&#43;" />
-                </label>
-                
-                <label>
-                  D
-                  <input type=checkbox checked name="cmax" value="D" />
-                </label>
-                
-                <label>
-                  D-
-                  <input type=checkbox checked name="cmax" value="D-" />
-                </label>
-                
-                <label>
-                  Z-
-                  <input type=checkbox checked name="cmax" value="Z-" />
-                </label>
-                
-                <label>
-                  SP
-                  <input type=checkbox checked name="cmax" value="SP" />
-                </label>
-                
-                <label>
-                  
-                  <input type=checkbox checked name="cmax" value="" />
-                </label>
-                
-              </span>
+              <div id="cmax-checkboxes"></div>
               <button>Close</button>
             </dialog>
           </fieldset>
@@ -15134,8 +14216,59 @@
 </body>
 
 <script>
-  const setupCheckboxes = (v) => {
+  const setupTextFilter = (name) => {
     const elSearchForm = document.querySelector(".search-form");
+    const elInput = elSearchForm.querySelector(`input[name="${name}"]`);
+    elInput.addEventListener("input", (e) => {
+      let v = e.currentTarget.value;
+      const elOutItems = document.querySelectorAll(`output>ul>li`);
+      if (!v) {
+        elOutItems.forEach((el) => {
+          el.classList.remove(`${name}-hide`);
+        })
+        return;
+      }
+      v = v.toLowerCase();
+
+      elOutItems.forEach((el) => {
+        if (el.dataset[name].toLowerCase().includes(v)) {
+          el.classList.remove(`${name}-hide`);
+        } else {
+          el.classList.add(`${name}-hide`);
+        }
+      })
+    })
+
+    const elDatalist = elInput.list;
+    if (elDatalist) {
+      const options = new Set();
+      document.querySelectorAll("output ul li").forEach((el) => {
+        options.add(el.dataset[name]);
+      });
+      Array.from(options).sort(stdSort).forEach((o) => {
+        const newOpt = elDatalist.appendChild(document.createElement("option"))
+        newOpt.value = o;
+      });
+    }
+  };
+
+  const setupCheckboxes = (v, opts = {}) => {
+    const elSearchForm = document.querySelector(".search-form");
+    const elCheckboxesContainer = elSearchForm.querySelector(`#${v}-checkboxes`)
+    const options = new Set();
+    document.querySelectorAll("output ul li").forEach((el) => {
+      const o = el.dataset[v];
+      options.add(o);
+    })
+    Array.from(options).sort(opts.sorter ?? stdSort).forEach((o) => {
+      const elLabel = elCheckboxesContainer.appendChild(document.createElement("label"));
+      elLabel.textContent = o;
+      const elInput = elLabel.appendChild(document.createElement("input"));
+      elInput.name = v;
+      elInput.type = "checkbox";
+      elInput.value = o;
+      elInput.checked = true;
+    })
     const elsChecks = elSearchForm.querySelectorAll(`input[name="${v}"]`);
     elsChecks.forEach(createCheckboxHandler(v));
     elSearchForm.querySelector(`button#${v}-select-all`)?.addEventListener("click", (e) => {
@@ -15155,7 +14288,8 @@
     elShowDialogButton?.addEventListener("click", () => void elDialog?.showModal())
     const elCloseDialogButton = elDialog?.querySelector("button");
     elCloseDialogButton?.addEventListener("click", () => void elDialog?.close())
-  }
+  };
+
   const createCheckboxHandler = (v) => {
     return (el) => {
       el.addEventListener("change", (e) => {
@@ -15169,37 +14303,43 @@
         });
       });
     }
-  }
+  };
+
+  const specialTiers = new Map([
+    ["EX", -4],
+    ["OP", -4],
+    ["S+", -3],
+    ["S", -2],
+    ["S-", -1],
+    ["SP", 1],
+  ]);
+  const subTiers = new Map([
+    ["+", -1],
+    ["-", 1],
+  ]);
+  const tierSort = (a, b) => {
+    if (!a) return 1;
+    if (!b) return -1;
+    const aSpec = specialTiers.get(a) ?? 0;
+    const bSpec = specialTiers.get(b) ?? 0;
+    if (!!aSpec || !!bSpec) return aSpec - bSpec;
+    const letterDiff = a[0].localeCompare(b[0]);
+    if (letterDiff) return letterDiff;
+    return (subTiers.get(a[1]) ?? 0) - (subTiers.get(b[1]) ?? 0);
+  };
+
+  const stdSort = (a, b) => a.localeCompare(b, "en", {numeric: true});
+
   (() => {
     const elSearchForm = document.querySelector(".search-form");
     elSearchForm.classList.remove("hidden");
-
+    setupTextFilter("name");
+    setupTextFilter("subclass");
     setupCheckboxes("rarity");
     setupCheckboxes("class");
-    setupCheckboxes("gptier");
-    setupCheckboxes("ce1s7");
-    setupCheckboxes("cmax");
-
-    const elNameSearch = elSearchForm.querySelector('input[name="name"]');
-    elNameSearch.addEventListener("input", (e) => {
-      let v = e.currentTarget.value;
-      const elOutItems = document.querySelectorAll(`output>ul>li`);
-      if (!v) {
-        elOutItems.forEach((el) => {
-          el.classList.remove("name-hide");
-        })
-        return;
-      }
-      v = v.toLowerCase();
-
-      elOutItems.forEach((el) => {
-        if (el.dataset.name.toLowerCase().includes(v)) {
-          el.classList.remove("name-hide");
-        } else {
-          el.classList.add("name-hide");
-        }
-      })
-    })
+    setupCheckboxes("gptier", {sorter: tierSort});
+    setupCheckboxes("ce1s7", {sorter: tierSort});
+    setupCheckboxes("cmax", {sorter: tierSort});
   })()
 </script>
 
