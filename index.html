@@ -262,7 +262,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-08-07T19:06:37&#43;08:00">2024-08-07</time>
+        <li>Last updated on <time datetime="2024-08-13T11:32:47&#43;08:00">2024-08-13</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-07-20 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
@@ -14208,9 +14208,13 @@
 </body>
 
 <script>
-  const setupTextFilter = (name) => {
+  const setupTextFilter = (name, opts = {}) => {
     const elSearchForm = document.querySelector(".search-form");
     const elInput = elSearchForm.querySelector(`input[name="${name}"]`);
+    let isMatch = (a, b) => a.toLowerCase().includes(b);
+    if (opts.exact) {
+      isMatch = (a, b) => a.toLowerCase() === b.toLowerCase();
+    }
     elInput.addEventListener("input", (e) => {
       let v = e.currentTarget.value;
       const elOutItems = document.querySelectorAll(`output>ul>li`);
@@ -14223,7 +14227,7 @@
       v = v.toLowerCase();
 
       elOutItems.forEach((el) => {
-        if (el.dataset[name].toLowerCase().includes(v)) {
+        if (isMatch(el.dataset[name], v)) {
           el.classList.remove(`${name}-hide`);
         } else {
           el.classList.add(`${name}-hide`);
@@ -14326,7 +14330,7 @@
     const elSearchForm = document.querySelector(".search-form");
     elSearchForm.classList.remove("hidden");
     setupTextFilter("name");
-    setupTextFilter("subclass");
+    setupTextFilter("subclass", {exact: true});
     setupCheckboxes("rarity");
     setupCheckboxes("class");
     setupCheckboxes("gptier", {sorter: tierSort});
