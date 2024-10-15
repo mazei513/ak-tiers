@@ -122,6 +122,7 @@
       display: flex;
       flex-flow: column;
       gap: 0.5rem;
+      z-index: 1;
     }
 
     summary {
@@ -235,6 +236,10 @@
       gap: 0.125rem;
     }
 
+    output li {
+      content-visibility: auto;
+    }
+
     .name-hide,
     .rarity-hide,
     .class-hide,
@@ -262,7 +267,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-10-16T01:19:10&#43;08:00">2024-10-16</time>
+        <li>Last updated on <time datetime="2024-10-16T01:33:04&#43;08:00">2024-10-16</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-10-16 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
