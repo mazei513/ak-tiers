@@ -56,7 +56,8 @@
       display: grid;
       justify-content: center;
       gap: 0.5rem;
-      grid-template-columns: repeat(auto-fill, minmax(min-content, 390px));
+      grid-template-columns: repeat(auto-fill, 390px);
+      grid-auto-rows: 208px;
     }
 
     search li {
@@ -123,6 +124,10 @@
       flex-flow: column;
       gap: 0.5rem;
       z-index: 1;
+    }
+
+    search>details.hidden {
+      content-visibility: hidden;
     }
 
     summary {
@@ -240,6 +245,17 @@
       content-visibility: auto;
     }
 
+    output li.name-hide,
+    output li.rarity-hide,
+    output li.class-hide,
+    output li.subclass-hide,
+    output li.gptier-hide,
+    output li.ce1s7-hide,
+    output li.cmax-hide,
+    output li.hidden {
+      content-visibility: hidden;
+    }
+
     .name-hide,
     .rarity-hide,
     .class-hide,
@@ -267,7 +283,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-10-16T01:33:04&#43;08:00">2024-10-16</time>
+        <li>Last updated on <time datetime="2024-10-16T14:32:47&#43;08:00">2024-10-16</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-10-16 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
