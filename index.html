@@ -56,8 +56,8 @@
       display: grid;
       justify-content: center;
       gap: 0.5rem;
-      grid-template-columns: repeat(auto-fill, 390px);
-      grid-auto-rows: 208px;
+      grid-template-columns: repeat(auto-fill, 320px);
+      grid-auto-rows: 228px;
     }
 
     search li {
@@ -65,7 +65,20 @@
       border: 1px solid grey;
       padding: 1rem;
       box-shadow: 0 0 0.75rem 0.25rem inset var(--rarity-color, transparent);
+      content-visibility: auto;
     }
+
+    search li.name-hide,
+    search li.rarity-hide,
+    search li.class-hide,
+    search li.subclass-hide,
+    search li.gptier-hide,
+    search li.ce1s7-hide,
+    search li.cmax-hide,
+    search li.hidden {
+      content-visibility: hidden;
+    }
+
 
     [data-rarity="6"] {
       --rarity-color: gold;
@@ -241,21 +254,6 @@
       gap: 0.125rem;
     }
 
-    output li {
-      content-visibility: auto;
-    }
-
-    output li.name-hide,
-    output li.rarity-hide,
-    output li.class-hide,
-    output li.subclass-hide,
-    output li.gptier-hide,
-    output li.ce1s7-hide,
-    output li.cmax-hide,
-    output li.hidden {
-      content-visibility: hidden;
-    }
-
     .name-hide,
     .rarity-hide,
     .class-hide,
@@ -283,7 +281,7 @@
     </aside>
     <aside>
       <ul>
-        <li>Last updated on <time datetime="2024-10-16T14:32:47&#43;08:00">2024-10-16</time>
+        <li>Last updated on <time datetime="2024-10-20T18:30:00&#43;08:00">2024-10-20</time>
         <li>Operator list taken from <a href="https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata/excel/character_table.json" rel="external" target="_blank">here (opens new tab)</a>.
         </li>
         <li><abbr title="GamePress">GP</abbr> tiers taken on 2024-10-16 from <a href="https://ak.gamepress.gg/tier-list/arknights-operator-tier-list" rel="external"
@@ -14699,6 +14697,12 @@
 
   const stdSort = (a, b) => a.localeCompare(b, "en", {numeric: true});
 
+  const registerServiceWorker = () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  };
+
   (() => {
     const elSearchForm = document.querySelector(".search-form");
     elSearchForm.classList.remove("hidden");
@@ -14709,7 +14713,9 @@
     setupCheckboxes("gptier", {sorter: tierSort});
     setupCheckboxes("ce1s7", {sorter: tierSort});
     setupCheckboxes("cmax", {sorter: tierSort});
+    registerServiceWorker();
   })()
+
 </script>
 
 </html>
