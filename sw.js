@@ -2,7 +2,7 @@ const cacheName = "v1";
 self.addEventListener("install", (e) => {
   e.waitUntil(async () => {
     const cache = await caches.open(cacheName);
-    await cache.add("/");
+    await cache.add("./");
   });
 });
 
